@@ -3,7 +3,21 @@
 
 def genera():
     "Generate the quine code"
-    return "_='_=%r;print(_%%_)';print(_%_)\n"
+
+    def escape(s):
+        return s.replace("%", "%%")
+
+    quote_mark = "'"  # %r works only with single quotes
+    var_name = "_"
+    left_side = "{}=".format(var_name)
+    printing = "print({0}%{0})".format(var_name)
+    separator = ";"
+
+    code = "".join([left_side,
+                    quote_mark, left_side, "%r",
+                    escape(separator), escape(printing), quote_mark,
+                    separator, printing, "\n"])
+    return code
 
 
 def test(code, file_name):
