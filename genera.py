@@ -4,19 +4,18 @@
 def genera():
     "Generate the quine code"
 
-    def escape(s):
-        return s.replace("%", "%%").replace("\n", "\\n")
-
-    quote_mark = "'"  # %r works only with single quotes
     var_name = "_"
-    left_side = "{}=".format(var_name)
-    printing = "print({0}%{0})".format(var_name)
-    separator = "\n# ~~~ #\n"
+    separator = ";"
+    left_side = "{} = ".format(var_name)
+    formatting = "r\\\"{0}\\\"'.format(" + var_name + "), '"
+    printing = "".join(["print('",
+                        left_side, formatting, separator, "', ", var_name,
+                        ")"])
 
     code = "".join([left_side,
-                    quote_mark, left_side, "%r",
-                    escape(separator), escape(printing), quote_mark,
-                    separator, printing, "\n"])
+                    "r\"", printing, "\"",
+                    " ", separator, " ",
+                    printing, "\n"])
     return code
 
 
@@ -26,7 +25,9 @@ def test(code, file_name):
     from subprocess import check_output
 
     output = check_output(["python3", file_name]).decode()
-    assert code == output
+    if code != output:
+        print(output)
+        raise AssertionError
 
 
 def main():
