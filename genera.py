@@ -5,13 +5,13 @@ def genera():
     "Generate the quine code"
 
     def escape(s):
-        return s.replace("%", "%%")
+        return s.replace("%", "%%").replace("\n", "\\n")
 
     quote_mark = "'"  # %r works only with single quotes
     var_name = "_"
     left_side = "{}=".format(var_name)
     printing = "print({0}%{0})".format(var_name)
-    separator = ";"
+    separator = "\n# ~~~ #\n"
 
     code = "".join([left_side,
                     quote_mark, left_side, "%r",
