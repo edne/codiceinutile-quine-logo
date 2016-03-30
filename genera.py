@@ -1,21 +1,25 @@
 #!/usr/bin/env python3
 
 
+def join(*args):
+    return "".join(args)
+
+
 def genera():
     "Generate the quine code"
 
     var_name = "_"
     separator = ";"
-    left_side = "{} = ".format(var_name)
-    formatting = "r\\\"{0}\\\"'.format(" + var_name + "), '"
-    printing = "".join(["print('",
-                        left_side, formatting, separator, "', ", var_name,
-                        ")"])
+    left_side = join(var_name, " = ")
+    formatting = join("r\\\"{0}\\\"'.format(", var_name, "), '")
+    printing = join("print('",
+                    left_side, formatting, separator, "', ", var_name,
+                    ")")
 
-    code = "".join([left_side,
-                    "r\"", printing, "\"",
-                    " ", separator, " ",
-                    printing, "\n"])
+    code = join(left_side,
+                "r\"", printing, "\"",
+                " ", separator, " ",
+                printing, "\n")
     return code
 
 
