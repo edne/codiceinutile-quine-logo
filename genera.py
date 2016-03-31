@@ -26,10 +26,10 @@ def genera():
                     quote(left_side, triple_quote("%s")),
                     "\n%", var_name, "+",
                     quote(separator),
-                    "+", var_name, "   )   ")
+                    "+", var_name, "[::-1])")
 
     code = join(left_side,
-                triple_quote(printing),
+                triple_quote(printing[::-1]),
                 separator,
                 printing, "\n")
     return code
