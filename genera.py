@@ -9,17 +9,16 @@ def genera():
     "Generate the quine code"
 
     var_name = "_"
-    separator_1 = ";"
-    separator_2 = " ; "
+    separator = ";"
     left_side = join(var_name, " = ")
-    formatting = join(r"r\"\"\"{0}\"\"\"'.format(", var_name, "), '")
+    formatting = join(r"r\"\"\"{0}\"\"\"'.format(", var_name, ") + '")
     printing = join("print('",
-                    left_side, formatting, separator_1, "', ", var_name,
+                    left_side, formatting, separator, "' + ", var_name,
                     ")")
 
     code = join(left_side,
                 "r\"\"\"", printing, "\"\"\"",
-                separator_2,
+                separator,
                 printing, "\n")
     return code
 
