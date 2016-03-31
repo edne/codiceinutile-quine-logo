@@ -5,7 +5,7 @@ def join(*args):
     return "".join(args)
 
 
-def genera():
+def genera(width=1):
     "Generate the quine code"
 
     def escape(*args):
@@ -17,22 +17,32 @@ def genera():
     def triple_quote(*args):
         return join("r\"\"\"", join(*args), "\"\"\"")
 
+    def expand(n, s):
+        rows = s.split("\n")
+        for i, r in enumerate(rows):
+            space_i = r.find(" ")
+            if space_i != -1:
+                while len(r) < n:
+                    r = r[:space_i] + " " + r[space_i:]
+                rows[i] = r
+
+        return "\n".join(rows)
+
     var_name = "_"
-    separator = ""
 
     left_side = join(var_name, "=")
 
     printing = join("\n",
-                    "print             (\n",
-                    quote(left_side, triple_quote("%s")),
-                    "\n% ", var_name, " + ",
-                    # quote(separator), " + ",
-                    var_name, "[::-1]     )\n",
+                    "print (\n",
+                    " ", quote(left_side, triple_quote("%s")), "\n",
+                    "% ", var_name, "+", var_name, "[::-1])\n",
                     "# codiceinutile.org\n")
+
+    printing = expand(len("# codiceinutile.org")*width,
+                      printing)
 
     code = join(left_side,
                 triple_quote(printing[::-1]),
-                separator,
                 printing, "\n")
     return code
 
@@ -51,7 +61,7 @@ def test(code, file_name):
 def main():
     "Main function"
     file_name = "quine.py"
-    code = genera()
+    code = genera(width=2)
 
     print(code)
 
