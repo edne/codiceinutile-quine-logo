@@ -8,18 +8,28 @@ def join(*args):
 def genera():
     "Generate the quine code"
 
+    def escape(*args):
+        return join(*args).replace("\n", r"\n").replace("\"", r"\"")
+
+    def quote(*args):
+        return join("'", escape(*args), "'")
+
+    def triple_quote(*args):
+        return join("r\"\"\"", join(*args), "\"\"\"")
+
     var_name = "_"
     separator = "\n"
-    left_side = join(var_name, " = ")
-    formatting = join(r"r\"\"\"{0}\"\"\"'.format(", var_name, ") + '")
-    printing = join("print('",
-                    left_side, formatting, separator, "' + ", var_name,
-                    ")")
 
-    printing = printing.replace("\n", r"\n")
+    left_side = join(var_name, " = ")
+
+    printing = join("print(",
+                    quote(left_side, triple_quote("{0}")),
+                    ".format(", var_name, ")", " + ",
+                    quote(separator),
+                    " + ", var_name, ")")
 
     code = join(left_side,
-                "r\"\"\"", printing, "\"\"\"",
+                triple_quote(printing),
                 separator,
                 printing, "\n")
     return code
