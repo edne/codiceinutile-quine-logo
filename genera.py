@@ -20,13 +20,13 @@ def genera():
     var_name = "_"
     separator = "\n"
 
-    left_side = join(var_name, " = ")
+    left_side = join(var_name, "=")
 
-    printing = join("print(",
-                    quote(left_side, triple_quote("{0}")),
-                    ".format(", var_name, ")", " + ",
+    printing = join("print       (\n",
+                    quote(left_side, triple_quote("%s")),
+                    "\n%", var_name, "+",
                     quote(separator),
-                    " + ", var_name, ")")
+                    "+", var_name, "   )   ")
 
     code = join(left_side,
                 triple_quote(printing),
