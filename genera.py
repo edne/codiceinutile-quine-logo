@@ -18,15 +18,17 @@ def genera():
         return join("r\"\"\"", join(*args), "\"\"\"")
 
     var_name = "_"
-    separator = "\n"
+    separator = ""
 
     left_side = join(var_name, "=")
 
-    printing = join("print       (\n",
+    printing = join("\n",
+                    "print             (\n",
                     quote(left_side, triple_quote("%s")),
-                    "\n%", var_name, "+",
-                    quote(separator),
-                    "+", var_name, "[::-1])")
+                    "\n% ", var_name, " + ",
+                    # quote(separator), " + ",
+                    var_name, "[::-1]     )\n",
+                    "# codiceinutile.org\n")
 
     code = join(left_side,
                 triple_quote(printing[::-1]),

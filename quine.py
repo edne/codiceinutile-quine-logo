@@ -1,6 +1,11 @@
-_=r""")]1-::[_+'n\'+_%
+_=r"""
+gro.elituniecidoc #
+)     ]1-::[_ + _ %
 '"\"\"\s%"\"\"\r=_'
-(       tnirp"""
-print       (
+(             tnirp
+"""
+print             (
 '_=r\"\"\"%s\"\"\"'
-%_+'\n'+_[::-1])
+% _ + _[::-1]     )
+# codiceinutile.org
+
