@@ -39,18 +39,22 @@ def expand(n, s):
 
 def indent(n, *rows):
     "Indent rows by n spaces"
-    return "\n".join([n*" " + row for row in rows])
+    return "\n".join(["''" + (n-2)*" " + row for row in rows])
 
 
-def genera(indenting=10):
+def genera(indenting=8):
     "Generate the quine code"
     printing = join("\n",
-                    r"print" + (indenting + 13)*" " + "(", "\n",
+                    # r"print" + (indenting + 13)*" " + "(", "\n",
+                    r"_=(" + (indenting + 14)*" ", "''", "\n",
                     indent(indenting,
+                           r"''               ''",
                            r"'_=r\"\"\"%s\"\"\"'",
                            r"% _ + _ [ : : -1 ])",
-                           r"# codiceinutile.org"),
-                    "\n")
+                           r"'codiceinutile.org'"),
+                    "\n",
+                    "print(_)" + (indenting + 11)*" ",
+                    "\n").replace("'", '"')
 
     code = join("_=",
                 triple_quote(printing[::-1]),
