@@ -44,12 +44,12 @@ def genera():
     left_side = join(var_name, "=")
 
     printing = join("\n",
-                    "print (         \n",
+                    "print (          \n",
                     "", quote(left_side, triple_quote("%s")), " \n",
-                    "% ", var_name, "+", var_name, "[::-1]        )\n",
+                    "% ", var_name, "+", var_name, "[::-1]         )\n",
                     " # codiceinutile.org\n")
 
-    printing = expand(28,
+    printing = expand(29,
                       printing)
 
     code = join(left_side,
