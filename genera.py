@@ -22,26 +22,27 @@ def expand(n, s):
     for i, r in enumerate(rows):
         space_i = r.find(" ")
         if space_i != -1:
-            while len(r) < n:
-                r = r[:space_i] + " " + r[space_i:]
+            if len(r) < n:
+                r = r[:space_i] + " " * int(n - len(r)) + r[space_i:]
             rows[i] = r
 
     return "\n".join(rows)
 
 
-def genera(width=1):
+def genera():
     "Generate the quine code"
     var_name = "_"
 
     left_side = join(var_name, "=")
 
     printing = join("\n",
-                    "print (\n",
-                    " ", quote(left_side, triple_quote("%s")), "\n",
-                    "% ", var_name, "+", var_name, "[::-1])\n",
-                    "# codiceinutile.org\n")
+                    "print (         \n",
+                    "", quote(left_side, triple_quote("%s")), " \n",
+                    "% ", var_name, "+", var_name, "[::-1]        )\n",
+                    # "\n# codiceinutile.org         \n")
+                    " # codiceinutile.org\n")
 
-    printing = expand(len("# codiceinutile.org")*width,
+    printing = expand(28,
                       printing)
 
     code = join(left_side,
@@ -66,7 +67,7 @@ def test(code, file_name):
 
 def main():
     "Main function"
-    code = genera(width=2)
+    code = genera()
 
     print(code)
 
