@@ -2,28 +2,36 @@
 
 
 def join(*args):
+    "Simply join strings together"
     return "".join(args)
 
 
 def escape(*args):
+    "Replace new-line and quote characters"
     return join(*args).replace("\n", r"\n").replace("\"", r"\"")
 
 
 def quote(*args):
+    "Single quote a string, escaping it"
     return join("'", escape(*args), "'")
 
 
 def triple_quote(*args):
+    "Triple quote a string, without escaping, allow new-lines"
     return join("r\"\"\"", join(*args), "\"\"\"")
 
 
 def expand(n, s):
+    """For each line of a string, if shorter then n, take the first space (if
+    any) and fil it with other spaces"""
     rows = s.split("\n")
     for i, r in enumerate(rows):
         space_i = r.find(" ")
         if space_i != -1:
             if len(r) < n:
-                r = r[:space_i] + " " * int(n - len(r)) + r[space_i:]
+                r = join(r[:space_i],
+                         " " * int(n - len(r)),
+                         r[space_i:])
             rows[i] = r
 
     return "\n".join(rows)
@@ -39,7 +47,6 @@ def genera():
                     "print (         \n",
                     "", quote(left_side, triple_quote("%s")), " \n",
                     "% ", var_name, "+", var_name, "[::-1]        )\n",
-                    # "\n# codiceinutile.org         \n")
                     " # codiceinutile.org\n")
 
     printing = expand(28,
