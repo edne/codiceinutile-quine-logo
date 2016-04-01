@@ -39,20 +39,13 @@ def expand(n, s):
 
 def genera():
     "Generate the quine code"
-    var_name = "_"
-
-    left_side = join(var_name, "=")
-
     printing = join("\n",
-                    "print (          \n",
-                    "", quote(left_side, triple_quote("%s")), " \n",
-                    "% ", var_name, "+", var_name, "[::-1]         )\n",
-                    " # codiceinutile.org\n")
+                    r"print(                       ", "\n",
+                    r"          '_=r\"\"\"%s\"\"\"'", "\n",
+                    r"                  %_+_[::-1])", "\n",
+                    r"          # codiceinutile.org", "\n")
 
-    printing = expand(29,
-                      printing)
-
-    code = join(left_side,
+    code = join("_=",
                 triple_quote(printing[::-1]),
                 printing, "\n")
     return code
