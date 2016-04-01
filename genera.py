@@ -37,13 +37,20 @@ def expand(n, s):
     return "\n".join(rows)
 
 
-def genera():
+def indent(n, *rows):
+    "Indent rows by n spaces"
+    return "\n".join([n*" " + row for row in rows])
+
+
+def genera(indenting=10):
     "Generate the quine code"
     printing = join("\n",
-                    r"print(                       ", "\n",
-                    r"          '_=r\"\"\"%s\"\"\"'", "\n",
-                    r"                  %_+_[::-1])", "\n",
-                    r"          # codiceinutile.org", "\n")
+                    r"print" + (indenting + 13)*" " + "(", "\n",
+                    indent(indenting,
+                           r"'_=r\"\"\"%s\"\"\"'",
+                           r"% _ + _ [ : : -1 ])",
+                           r"# codiceinutile.org"),
+                    "\n")
 
     code = join("_=",
                 triple_quote(printing[::-1]),
