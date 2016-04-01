@@ -42,19 +42,29 @@ def indent(n, *rows):
     return "\n".join(["''" + (n-2)*" " + row for row in rows])
 
 
-def genera(indenting=8):
+def spaces(n):
+    "Multiple spaces"
+    return " " * int(n)
+
+
+def genera():
     "Generate the quine code"
-    printing = join("\n",
+    printing = join(";",
+                    # "\n",
                     # r"print" + (indenting + 13)*" " + "(", "\n",
-                    r"_=(" + (indenting + 14)*" ", "''", "\n",
-                    indent(indenting,
-                           r"''               ''",
+                    # r"_=(" + spaces(indenting + 14), "''", "\n",
+                    r"_=(", "      ''", "\n",
+                    indent(8,
+                           # r"''               ''",
                            r"'_=r\"\"\"%s\"\"\"'",
-                           r"% _ + _ [ : : -1 ])",
-                           r"'codiceinutile.org'"),
+                           r"%_+_[::-1])        ",
+                           r"                 ''",
+                           r"                 ''",
+                           r"# codiceinutile.org"),
                     "\n",
-                    "print(_)" + (indenting + 11)*" ",
-                    "\n").replace("'", '"')
+                    "print(_)" + spaces(13),
+                    # "\n"
+                    ).replace("'", '"')
 
     code = join("_=",
                 triple_quote(printing[::-1]),
