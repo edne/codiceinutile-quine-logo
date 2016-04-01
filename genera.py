@@ -88,9 +88,13 @@ def test(code, file_name):
 
 def main():
     "Main function"
+    from sys import argv
     code = genera()
 
     print(code)
+
+    if "--render" in argv:
+        print("".join([c if c in [" ", "\n"] else u"\u25AE" for c in code]))
 
     test(code, "quine.py")
 
