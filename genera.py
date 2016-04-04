@@ -6,6 +6,10 @@ def join(*args):
     return "".join(args)
 
 
+def rows(*args):
+    return "\n".join(args)
+
+
 def escape(*args):
     "Replace new-line and quote characters"
     return join(*args).replace("\n", r"\n").replace("\"", r"\"")
@@ -47,8 +51,8 @@ def spaces(n):
     return " " * int(n)
 
 
-def genera():
-    "Generate the quine code"
+def codiceinutile():
+    "Generate the quine logo"
     printing = join(";",
                     # "\n",
                     # r"print" + (indenting + 13)*" " + "(", "\n",
@@ -72,6 +76,16 @@ def genera():
     return code
 
 
+def genera():
+    printing = r"""print('_=r\"\"\"%s\"\"\";%s'%(_,_))"""
+
+    code = join("_=",
+                triple_quote(printing),
+                ";",
+                printing, "\n")
+    return code
+
+
 def test(code, file_name):
     "Test the generated script"
     # can it be done with an eval?
@@ -89,14 +103,20 @@ def test(code, file_name):
 def main():
     "Main function"
     from sys import argv
-    code = genera()
 
-    print(code)
+    if "--codiceinutile" in argv[1:]:
+        code = codiceinutile()
+    else:
+        code = genera()
 
-    if "--render" in argv:
+    if "--show" in argv[1:]:
+        print(code)
+
+    if "--render" in argv[1:]:
         print("".join([c if c in [" ", "\n"] else u"\u25AE" for c in code]))
 
-    test(code, "quine.py")
+    if "--test" in argv[1:]:
+        test(code, "quine.py")
 
 if __name__ == "__main__":
     main()
