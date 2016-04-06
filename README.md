@@ -1,8 +1,9 @@
 # Quine Logo
 
-Concept for a self-printing logo.
+My proposal for a generative, ASCII-art, self-printing logo for the
+*Codice Inutile* (useless code) artist collective.
 
-```python3
+```python
 _=r"""             )_(tnirp
 gro.elituniecidoc #      ""
 ""                       ""
