@@ -2,8 +2,7 @@
 
 Concept for a self-printing logo.
 
-```
-% python3 ./logo.py
+```python3
 _=r"""             )_(tnirp
 gro.elituniecidoc #      ""
 ""                       ""
